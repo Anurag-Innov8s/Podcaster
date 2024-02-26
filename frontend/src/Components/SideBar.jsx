@@ -1,5 +1,4 @@
 import React from 'react'
-import { useState } from 'react';
 import styled from 'styled-components'
 import LogoIcon from '../Images/mic.png'
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
@@ -11,11 +10,10 @@ import DarkModeRoundedIcon from '@mui/icons-material/DarkModeRounded';
 import ExitToAppRoundedIcon from '@mui/icons-material/ExitToAppRounded';
 import CloseRounded from '@mui/icons-material/CloseRounded';
 import { Link } from 'react-router-dom'
-import { lightTheme, darkTheme } from "../Utils/Themes"
 
 
 const MenuContainer = styled.div`
-        flex: 0.5;
+  flex: 0.5;
   flex-direction: column;
   height: 100vh;
   display: flex;
@@ -28,10 +26,9 @@ const MenuContainer = styled.div`
     z-index: 1000;
     width: 100%;
     max-width: 250px;
-    left: ${({ setMenuOpen }) => (setMenuOpen ? "0" : "-100%")};
-    transition: 0.3s ease-in-out;
+    left: ${({ menuOpen }) => (menuOpen ? "0" : "-100%")};
   }
-    `;
+`;
 
 const Logo = styled.div`
     color: ${({ theme }) => theme.primary};
@@ -48,7 +45,9 @@ const Logo = styled.div`
 const Image = styled.img`
     height : 35px`;
 const Close = styled.div`
+margin-top:9px;
 display: none;
+cursor:pointer;
 @media (max-width: 1100px) {
   display: block;
 
@@ -64,7 +63,7 @@ align-items: center;
 gap: 12px;
 cursor: pointer;
 color:  ${({ theme }) => theme.text_secondary};
-width: 100%;
+width:100%;
 &:hover{
     background-color: ${({ theme }) => theme.text_secondary + 50};
 }
@@ -83,62 +82,75 @@ const Flex = styled.div`
 justify-content: space-between;
 display: flex;
 align-items: center;
-padding: 0px 16px;
-width: 86%;
+padding: 0px 6px;
+gap:25px;
+
 `;
 
-const SideBar = () => {
-    const [darkMode, setDarkMode] = useState(false);
-
-  const currentTheme = darkMode ? darkTheme : lightTheme;
+const SideBar = ({menuOpen, setMenuOpen, darkMode, setDarkMode}) => {
+    const menuItem = [
+        {
+            link: "/",
+            name: "Dashboard",
+            icon: <HomeRoundedIcon />
+        },
+        {
+            link: "/search",
+            name: "Search",
+            icon: <SearchRoundedIcon />
+        },
+        {
+            link: "/favourites",
+            name: "Favourites",
+            icon: <FavoriteRoundedIcon />
+        },
+    ]
+    const buttonItem = [
+        {
+            fun: () => console.log("function"),
+            name: "Upload",
+            icon: <BackupRoundedIcon />
+        },
+        {
+            fun: ()=>setDarkMode(!darkMode),
+            name: darkMode?"Light Mode" : "Dark Mode",
+            icon: darkMode?<LightModeRoundedIcon />:<DarkModeRoundedIcon/>
+        },
+        {
+            link: "/favourites",
+            name: "Log Out",
+            icon: <ExitToAppRoundedIcon />
+        },
+    ]
     return (
 
-        <MenuContainer>
+        <MenuContainer menuOpen={menuOpen}>
             <Flex>
                 <Logo>
                     <Image src={LogoIcon}></Image>
-                    Podcaster
+                    PODCASTER
                 </Logo>
-                <Close>
+                <Close onClick={()=>{setMenuOpen(false)}}>
                     <CloseRounded></CloseRounded>
                 </Close>
             </Flex>
-            <Link>
-                <Element>
-                    <HomeRoundedIcon></HomeRoundedIcon>
-                    <NavText>DashBoard</NavText>
-                </Element>
-            </Link>
-            <Link>
-                <Element>
-                    <SearchRoundedIcon></SearchRoundedIcon>
-                    <NavText>Search</NavText>
-                </Element>
-            </Link>
-            <Link>
-                <Element>
-                    <FavoriteRoundedIcon></FavoriteRoundedIcon>
-                    <NavText>Favourites</NavText>
-                </Element>
-            </Link>
+            {menuItem.map((item) => (
+                <Link to={item.link} style={{textDecoration:"none"}}>
+                    <Element>
+                        {item.icon}
+                        <NavText>{item.name}</NavText>
+                    </Element>
+                </Link>
+            ))}
             <HR />
-            <Element>
-                <BackupRoundedIcon></BackupRoundedIcon>
-                <NavText>Upload</NavText>
-            </Element>
-
-            <Element onClick={() => setDarkMode(!darkMode)} style={{ backgroundColor: currentTheme.bg }}>
-      {darkMode ? (
-        <LightModeRoundedIcon style={{ color: currentTheme.text_primary }} />
-      ) : (
-        <DarkModeRoundedIcon style={{ color: currentTheme.text_primary }} />
-      )}
-      <NavText style={{ color: currentTheme.text_primary }}>{darkMode ? 'Light Mode' : 'Dark Mode'}</NavText>
-    </Element>
-            <Element>
-                <ExitToAppRoundedIcon></ExitToAppRoundedIcon>
-                <NavText>Log Out</NavText>
-            </Element>
+            {
+                buttonItem.map((item) => (
+                    <Element onClick={item.fun}>
+                    {item.icon}
+                    <NavText>{item.name}</NavText>
+                </Element>
+                ))
+            }
 
         </MenuContainer>
     )
