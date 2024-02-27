@@ -2,8 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import PersonIcon from '@mui/icons-material/Person';
 import MenuIcon from "@mui/icons-material/Menu";
-import { IconButton } from "@mui/material";
-import Person from '@mui/icons-material/Person';
+
 
 const NavBarDiv = styled.div`
     display:flex;
