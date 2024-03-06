@@ -87,7 +87,7 @@ gap:25px;
 
 `;
 
-const SideBar = ({menuOpen, setMenuOpen, darkMode, setDarkMode}) => {
+const SideBar = ({ menuOpen, setMenuOpen, darkMode, setDarkMode }) => {
     const menuItem = [
         {
             link: "/",
@@ -112,9 +112,9 @@ const SideBar = ({menuOpen, setMenuOpen, darkMode, setDarkMode}) => {
             icon: <BackupRoundedIcon />
         },
         {
-            fun: ()=>setDarkMode(!darkMode),
-            name: darkMode?"Light Mode" : "Dark Mode",
-            icon: darkMode?<LightModeRoundedIcon />:<DarkModeRoundedIcon/>
+            fun: () => setDarkMode(!darkMode),
+            name: darkMode ? "Light Mode" : "Dark Mode",
+            icon: darkMode ? <LightModeRoundedIcon /> : <DarkModeRoundedIcon />
         },
         {
             link: "/favourites",
@@ -130,12 +130,12 @@ const SideBar = ({menuOpen, setMenuOpen, darkMode, setDarkMode}) => {
                     <Image src={LogoIcon}></Image>
                     PODCASTER
                 </Logo>
-                <Close onClick={()=>{setMenuOpen(false)}}>
+                <Close onClick={() => { setMenuOpen(false) }}>
                     <CloseRounded></CloseRounded>
                 </Close>
             </Flex>
             {menuItem.map((item) => (
-                <Link to={item.link} style={{textDecoration:"none"}}>
+                <Link to={item.link} style={{ textDecoration: "none", width: "100%" }}>
                     <Element>
                         {item.icon}
                         <NavText>{item.name}</NavText>
@@ -146,9 +146,9 @@ const SideBar = ({menuOpen, setMenuOpen, darkMode, setDarkMode}) => {
             {
                 buttonItem.map((item) => (
                     <Element onClick={item.fun}>
-                    {item.icon}
-                    <NavText>{item.name}</NavText>
-                </Element>
+                        {item.icon}
+                        <NavText>{item.name}</NavText>
+                    </Element>
                 ))
             }
 

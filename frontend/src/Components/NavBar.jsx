@@ -38,7 +38,7 @@ const LoginBtn = styled.div`
     &:hover{
         background-color: ${({ theme }) => theme.primary};
     color: ${({ theme }) => theme.text_primary};
-    }
+    } 
 `;
 const IconBtn = styled.div`
 cursor:pointer;
@@ -53,7 +53,7 @@ const NavBar = ({menuOpen, setMenuOpen}) => {
         <IconBtn onClick={()=>setMenuOpen(!menuOpen)} >
             <MenuIcon/>
         </IconBtn>
-        <Welcome>Welcome</Welcome>
+        <Welcome>Welcome, Anurag</Welcome>
         <LoginBtn>
             <PersonIcon/>Login
         </LoginBtn>            
