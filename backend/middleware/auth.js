@@ -1,7 +1,7 @@
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 
-const isAuthenticated = async(req,res)=>{
+exports.isAuthenticated = async(req,res,next)=>{
     try{
         let token = req.headers['cookie'];
         token = token?.split("=")[1]?.trim();
@@ -16,12 +16,10 @@ const isAuthenticated = async(req,res)=>{
         next();
     }
     catch(error){
-        res.status(500).json({
+        res.status(500).json({ 
             success:false,
             message:error.message,
         });
     }
 }
-
-export default isAuthenticated;
-    
+     
