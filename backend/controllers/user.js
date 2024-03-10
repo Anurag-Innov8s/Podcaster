@@ -146,3 +146,27 @@ exports.updatePassword = async(req,res)=>{
     }
 }
 
+exports.findUserByEmail = async(req,res)=>{
+    const {email} = req.body;
+    try{
+        const user = await User.findOne({email:email});
+        if(user){
+            return res.status(200).json({
+                success:true,
+                user,
+            })
+        }
+        else{
+            return res.status(500).json({
+                success:false,
+                message:"User not found"
+            })
+        }
+    }
+    catch(error){
+        res.status(500).json({
+            success:false,
+            message:error.message
+        })
+    }
+}
