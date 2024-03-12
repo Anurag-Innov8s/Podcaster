@@ -10,7 +10,7 @@ import DarkModeRoundedIcon from '@mui/icons-material/DarkModeRounded';
 import ExitToAppRoundedIcon from '@mui/icons-material/ExitToAppRounded';
 import CloseRounded from '@mui/icons-material/CloseRounded';
 import { Link } from 'react-router-dom'
-
+import { useSelector, useDispatch } from 'react-redux'
 
 const MenuContainer = styled.div`
   flex: 0.5;
@@ -87,7 +87,10 @@ gap:25px;
 
 `;
 
+
+
 const SideBar = ({ menuOpen, setMenuOpen, darkMode, setDarkMode }) => {
+    const { currentUser } = useSelector(state => state.user)
     const menuItem = [
         {
             link: "/",
@@ -117,11 +120,19 @@ const SideBar = ({ menuOpen, setMenuOpen, darkMode, setDarkMode }) => {
             icon: darkMode ? <LightModeRoundedIcon /> : <DarkModeRoundedIcon />
         },
         {
-            link: "/favourites",
-            name: "Log Out",
+            fun: () => currentUser ? <Element>
+                <ExitToAppRoundedIcon />
+                <NavText>Log Out</NavText>
+            </Element> :
+                <Element>
+                    <ExitToAppRoundedIcon />
+                    <NavText>Log In</NavText>
+                </Element>,
+            name: currentUser? "Log Out":"Log In",
             icon: <ExitToAppRoundedIcon />
         },
     ]
+
     return (
 
         <MenuContainer menuOpen={menuOpen}>
