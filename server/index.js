@@ -75,6 +75,10 @@ app.use((err, req, res, next) => {
     })
 })
 
+app.get("/", (req, res) => {
+    res.json({ message: "Hello I am Backend" });
+  });
+
 app.listen(port, () => {
     console.log(`Server Started at port ${port}`)
     connect();
