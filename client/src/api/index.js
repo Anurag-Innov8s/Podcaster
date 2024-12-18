@@ -1,6 +1,6 @@
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
-const API = axios.create({ baseURL: `http://localhost:5000/api` }); 
+const API = axios.create({ baseURL: `https://podcaster-server.onrender.com/api` }); 
 
 //auth
     export const signIn = async ({ email, password }) => await API.post('/auth/signin', { email, password });
