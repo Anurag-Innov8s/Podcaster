@@ -1,5 +1,4 @@
 import axios from 'axios';
-import jwt_decode from 'jwt-decode';
 const API = axios.create({ baseURL: `https://podcaster-server.onrender.com/api` }); 
 
 //auth
