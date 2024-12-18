@@ -23,19 +23,22 @@ const corsConfig = {
 app.use(cors(corsConfig));
 const port = process.env.PORT || 5000;
 
-const connect = () => {
+let isConnected = false; // Track connection status
+
+const connect = async () => {
+    if (isConnected) return; // Use existing connection
     try {
-        mongoose.connect(process.env.MONGO_URI, {
+        await mongoose.connect(process.env.MONGO_URI, {
             dbName: "Poddcaster",
-            writeConcern: { w: 'majority' }
-
+            writeConcern: { w: 'majority' },
         });
-
-        console.log(`Database connected`);
+        isConnected = true;
+        console.log("Database connected");
     } catch (error) {
-        console.error(error);
+        console.error("Database connection error:", error);
     }
 };
+
 
 
 app.use(express.json())
